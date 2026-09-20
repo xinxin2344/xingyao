@@ -42,7 +42,7 @@
     overflow: hidden;
   }
   /* 背景星星 */
-  .splash.star {
+  .star {
     position: absolute; width: 2px; height: 2px; border-radius: 50%;
     background: #fff; opacity: 0;
     animation: twinkle 2.5s ease-in-out infinite;
@@ -562,7 +562,7 @@
     const starsBox = document.getElementById('stars');
     for (let i = 0; i < 80; i++) {
       const s = document.createElement('div');
-      s.className = 'splash star';
+      s.className = 'star';
       s.style.left = Math.random() * 100 + '%';
       s.style.top = Math.random() * 100 + '%';
       s.style.animationDelay = (Math.random() * 2) + 's';
