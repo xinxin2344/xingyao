@@ -26,7 +26,7 @@
 <meta name="twitter:title" content="星耀质量工具箱" />
 <meta name="twitter:description" content="纯本地质量工程师桌面工具，SPC/MSA/FMEA/8D 一站式解决。" />
 <link rel="preconnect" href="https://fonts.googleapis.cn" />
-<link href="https://fonts.googleapis.cn/css2?family=Noto+Serif+SC:wght@700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.cn/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
@@ -44,13 +44,24 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
-  /* 标题 —— 思源宋体 + 金属质感 + 简洁淡入 */
+  /* 少量细小星光：低调点缀，缓速轻闪 */
+  .star {
+    position: absolute; width: 1px; height: 1px; border-radius: 50%;
+    background: #e0e7ff;
+    opacity: 0;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 0.45; transform: scale(1.25); }
+  }
+  /* 标题 —— 马善政毛笔楷书 + 金属质感 + 简洁淡入 */
   .splash-title {
     position: relative;
-    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
-    font-weight: 900;
-    font-size: clamp(80px, 18vw, 200px);
-    letter-spacing: 0.15em;
+    font-family: "Ma Shan Zheng", "Noto Serif SC", "KaiTi", serif;
+    font-weight: 400;
+    font-size: clamp(96px, 20vw, 220px);
+    letter-spacing: 0.12em;
     background: linear-gradient(180deg,
       #ffffff 0%,
       #f5f3ff 12%,
@@ -114,24 +125,26 @@
     from { transform: scaleX(0); }
     to   { transform: scaleX(1); }
   }
-  /* ===== 出场：Steam 式干净淡出 ===== */
+  /* ===== 出场：丝滑淡出 ===== */
   .splash-out {
-    animation: splashFade 0.6s ease forwards;
+    animation: splashFade 0.9s cubic-bezier(0.45, 0, 0.55, 1) forwards;
   }
   @keyframes splashFade {
-    to { opacity: 0; }
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
   }
   .splash-out .splash-title {
-    animation: titleOut 0.55s ease forwards;
+    animation: titleOut 0.8s cubic-bezier(0.45, 0, 0.55, 1) forwards;
   }
   @keyframes titleOut {
-    to { opacity: 0; letter-spacing: 0.4em; filter: blur(4px); }
+    to { opacity: 0; letter-spacing: 0.22em; filter: blur(2px); }
   }
   .splash-out .splash-sub,
   .splash-out .splash-bar,
-  .splash-out .splash-scan {
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  .splash-out .splash-scan,
+  .splash-out .star {
+    opacity: 0 !important;
+    transition: opacity 0.5s cubic-bezier(0.45, 0, 0.55, 1);
   }
 
   /* 通用渐变文字 */
@@ -171,6 +184,7 @@
 
 <!-- ===== 开场动画 ===== -->
 <div id="splash" class="splash" aria-hidden="true">
+  <div id="stars"></div>
   <div class="splash-title">星耀</div>
   <!-- Steam 式横扫流光 -->
   <div class="splash-scan"></div>
@@ -609,11 +623,22 @@
     }
   })();
 
-  // ===== 开场动画：退出时机（进度线 2.9s 填满，稍作停留后淡出）=====
+  // ===== 开场动画：少量细小星光 + 丝滑退出 =====
   (function () {
+    // 24 颗 1px 细星，缓速轻闪，不抢戏
+    const starsBox = document.getElementById('stars');
+    for (let i = 0; i < 24; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = (Math.random() * 3) + 's';
+      s.style.animationDuration = (3.5 + Math.random() * 3) + 's';
+      starsBox.appendChild(s);
+    }
     const splash = document.getElementById('splash');
-    setTimeout(() => { splash.classList.add('splash-out'); }, 3050);
-    setTimeout(() => { splash.style.display = 'none'; }, 3750);
+    setTimeout(() => { splash.classList.add('splash-out'); }, 3100);
+    setTimeout(() => { splash.style.display = 'none'; }, 4100);
   })();
 </script>
 </body>
