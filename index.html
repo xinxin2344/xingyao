@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>星耀 · 质量工具箱</title>
+<meta name="description" content="星耀质量工具箱——纯本地运行的 SPC / FMEA / MSA / 8D 质量工程师桌面工具，无需联网，数据全存本地。" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --brand: #6366f1;
+    --brand2: #8b5cf6;
+    --accent: #06b6d4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  /* ===== 开场动画：星耀旋转淡入 ===== */
+  .splash {
+    position: fixed; inset: 0; z-index: 9999;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .splash.star {
+    position: absolute; width: 2px; height: 2px; border-radius: 50%;
+    background: #fff; opacity: 0;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.4); }
+  }
+  .splash-glow {
+    position: absolute; width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.35) 0%, rgba(99,102,241,0.15) 40%, transparent 70%);
+    filter: blur(20px);
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(0.85); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  .splash-title {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-weight: 900;
+    font-size: clamp(72px, 16vw, 180px);
+    letter-spacing: 0.08em;
+    background: linear-gradient(135deg, #fff 0%, #c4b5fd 40%, #818cf8 70%, #22d3ee 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: rotateY(-90deg) scale(0.4);
+    animation: starYaoIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    text-shadow: 0 0 80px rgba(139, 92, 246, 0.5);
+  }
+  @keyframes starYaoIn {
+    0%   { opacity: 0; transform: rotateY(-90deg) scale(0.4); }
+    60%  { opacity: 1; transform: rotateY(10deg) scale(1.05); }
+    100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+  }
+  .splash-sub {
+    position: absolute; bottom: 28%; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.7); font-size: 14px; letter-spacing: 0.4em;
+    opacity: 0; animation: fadeUp 0.8s ease 1.6s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+  .splash-out { animation: splashOut 0.7s ease forwards; }
+  @keyframes splashOut {
+    to { opacity: 0; transform: scale(1.05); visibility: hidden; }
+  }
+
+  /* 通用渐变文字 */
+  .grad-text {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    transition: all 0.25s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(99,102,241,0.45); }
+  .btn-ghost { transition: all 0.2s ease; }
+  .btn-ghost:hover { background: rgba(99,102,241,0.08); border-color: #8b5cf6; color: #6366f1; }
+
+  .feature-card { transition: all 0.3s ease; }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(99,102,241,0.15); }
+
+  .shot-frame {
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(15,23,42,0.18);
+    transition: transform 0.35s ease;
+  }
+  .shot-frame:hover { transform: scale(1.02); }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(99,102,241,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+<!-- ===== 开场动画 ===== -->
+<div id="splash" class="splash" aria-hidden="true">
+  <!-- 背景星星 -->
+  <div id="stars"></div>
+  <div class="splash-glow"></div>
+  <div class="splash-title">星耀</div>
+  <div class="splash-sub">Q U A L I T Y &nbsp; T O O L B O X</div>
+</div>
+
+<!-- ===== 导航 ===== -->
+<header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/70 border-b border-slate-200/70">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2 font-bold text-lg">
+      <span class="w-8 h-8 rounded-lg grad-text flex items-center justify-center" style="background: linear-gradient(135deg,#6366f1,#06b6d4);">
+        <span class="text-white text-sm">星</span>
+      </span>
+      <span class="grad-text">星耀</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-slate-600">
+      <a href="#features" class="hover:text-indigo-600 transition">功能</a>
+      <a href="#screenshots" class="hover:text-indigo-600 transition">截图</a>
+      <a href="#download" class="hover:text-indigo-600 transition">下载</a>
+      <a href="#faq" class="hover:text-indigo-600 transition">常见问题</a>
+    </nav>
+    <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
+  </div>
+</header>
+
+<main id="top" class="pt-16">
+
+  <!-- ===== Hero ===== -->
+  <section class="relative bg-grid overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/60 via-white to-white pointer-events-none"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs text-indigo-600 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+        v2.2.4 已发布 · 纯本地运行 · 无需联网
+      </div>
+      <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
+        <span class="grad-text">质量工具箱</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-4 leading-relaxed">
+        为质量工程师打造的纯本地桌面工具集<br class="hidden md:block" />
+        SPC · MSA · FMEA · 8D · QC 七大手法，开箱即用
+      </p>
+      <p class="text-sm text-slate-400 mb-10">数据 100% 存储在本地，不联网、不上传、无广告</p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://1836103213.share.123pan.cn/123pan/yBApTd-smRlH" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-indigo-500/30 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          下载安装版
+        </a>
+        <a href="https://1836103213.share.123pan.cn/123pan/yBApTd-0TM7H" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          下载便携版
+        </a>
+      </div>
+      <p class="mt-6 text-xs text-slate-400">Windows x64 · 安装版 65.5 MB · 便携版 74.9 MB</p>
+    </div>
+  </section>
+
+  <!-- ===== 功能亮点 ===== -->
+  <section id="features" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">核心功能</h2>
+        <p class="text-slate-500">覆盖质量工程师日常工作全流程</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-white border border-indigo-100">
+          <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-lg font-bold mb-4">8D</div>
+          <h3 class="text-lg font-bold mb-2">8D 完整报告</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">D0-D8 全流程，内嵌 5Why 根因分析与鱼骨图，支持图片粘贴，一键导出 Word / Excel / PDF。</p>
+        </div>
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100">
+          <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg font-bold mb-4">SP</div>
+          <h3 class="text-lg font-bold mb-2">SPC 制程能力</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">支持 Pm/Pmk、Pp/Ppk、Cp/Cpk 三种研究，X-R 控制图、正态性检验、OCAP 行动计划全包含。</p>
+        </div>
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-cyan-50 to-white border border-cyan-100">
+          <div class="w-12 h-12 rounded-xl bg-cyan-600 text-white flex items-center justify-center text-lg font-bold mb-4">MS</div>
+          <h3 class="text-lg font-bold mb-2">MSA 测量分析</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">GRR 重复性与再现性分析，ndc / %PV / 方差分量，自动判定合格与否。</p>
+        </div>
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border border-pink-100">
+          <div class="w-12 h-12 rounded-xl bg-pink-600 text-white flex items-center justify-center text-lg font-bold mb-4">FM</div>
+          <h3 class="text-lg font-bold mb-2">PFMEA / DFMEA</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">失效模式与影响分析，S/O/D 评分与 RPN 计算，措施跟踪闭环。</p>
+        </div>
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-white border border-amber-100">
+          <div class="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center text-lg font-bold mb-4">QC</div>
+          <h3 class="text-lg font-bold mb-2">QC 七大手法</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">检查表、柏拉图、直方图、散布图、层别法、X-R 控制图、鱼骨图，列可自定义。</p>
+        </div>
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg font-bold mb-4">AI</div>
+          <h3 class="text-lg font-bold mb-2">AI 助手</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">内嵌 AI 助手，自动填写字段、生成测试数据、识别图表给建议，支持自定义模型地址。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 截图 ===== -->
+  <section id="screenshots" class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">界面预览</h2>
+        <p class="text-slate-500">简洁现代，专注于内容本身</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="shot-frame md:col-span-2">
+          <img src="screenshots/main.png" alt="主界面" class="w-full h-auto" loading="lazy" />
+        </div>
+        <div class="shot-frame">
+          <img src="screenshots/spc.png" alt="SPC 制程能力分析" class="w-full h-auto" loading="lazy" />
+        </div>
+        <div class="shot-frame">
+          <img src="screenshots/msa.png" alt="MSA 测量系统分析" class="w-full h-auto" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 下载 ===== -->
+  <section id="download" class="py-20 bg-gradient-to-b from-indigo-50 to-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">立即下载</h2>
+        <p class="text-slate-500">当前版本 v2.2.4 · Windows 10 及以上</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-8 shadow-xl shadow-indigo-100/50 border border-indigo-100 text-center">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-600 text-white flex items-center justify-center mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-1">安装版</h3>
+          <p class="text-sm text-slate-500 mb-6">标准 NSIS 安装程序，含桌面快捷方式与开始菜单</p>
+          <div class="text-xs text-slate-400 mb-4">质量工具箱 Setup 2.2.4.exe · 65.5 MB</div>
+          <a href="https://1836103213.share.123pan.cn/123pan/yBApTd-smRlH" class="btn-primary block text-white py-3 rounded-xl font-semibold">下载安装版</a>
+          <p class="text-[11px] text-slate-400 mt-3">支持自定义安装路径 · 可卸载</p>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-xl shadow-purple-100/50 border border-purple-100 text-center">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-600 text-white flex items-center justify-center mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-1">便携版</h3>
+          <p class="text-sm text-slate-500 mb-6">单文件免安装，解压即用，不写注册表</p>
+          <div class="text-xs text-slate-400 mb-4">质量工具箱-Portable-2.2.4.exe · 74.9 MB</div>
+          <a href="https://1836103213.share.123pan.cn/123pan/yBApTd-0TM7H" class="btn-primary block text-white py-3 rounded-xl font-semibold">下载便携版</a>
+          <p class="text-[11px] text-slate-400 mt-3">首次启动自动解压 · 二次启动 1 秒</p>
+        </div>
+      </div>
+      <p class="text-center text-xs text-slate-400 mt-8">所有文件均经过安全检测，无任何捆绑软件。</p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">常见问题</h2>
+      </div>
+      <div class="space-y-4">
+        <details class="group p-5 rounded-xl bg-slate-50 border border-slate-100 cursor-pointer">
+          <summary class="font-semibold flex justify-between items-center">
+            <span>需要联网吗？数据会上传吗？</span>
+            <span class="text-indigo-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">不需要。软件完全本地运行，所有文档与设置存储在本机，不联网、不上传、无账号、无广告。</p>
+        </details>
+        <details class="group p-5 rounded-xl bg-slate-50 border border-slate-100 cursor-pointer">
+          <summary class="font-semibold flex justify-between items-center">
+            <span>安装版和便携版有什么区别？</span>
+            <span class="text-indigo-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">安装版通过标准安装程序部署，含桌面快捷方式、开始菜单与卸载入口；便携版是单文件 exe，双击即运行，无需安装，适合 U 盘携带或临时使用。</p>
+        </details>
+        <details class="group p-5 rounded-xl bg-slate-50 border border-slate-100 cursor-pointer">
+          <summary class="font-semibold flex justify-between items-center">
+            <span>支持哪些操作系统？</span>
+            <span class="text-indigo-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">目前仅支持 Windows 10 / 11（64 位）。</p>
+        </details>
+        <details class="group p-5 rounded-xl bg-slate-50 border border-slate-100 cursor-pointer">
+          <summary class="font-semibold flex justify-between items-center">
+            <span>AI 助手需要付费吗？</span>
+            <span class="text-indigo-500 group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 leading-relaxed">软件本身免费。AI 助手需要你自行申请 API Key（内置 Agnes 2.5 Flash 等快捷预设），费用由服务商收取。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== 页脚 ===== -->
+<footer class="bg-slate-900 text-slate-400 py-10">
+  <div class="max-w-7xl mx-auto px-6 text-center text-sm">
+    <div class="flex items-center justify-center gap-2 mb-3">
+      <span class="w-7 h-7 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg,#6366f1,#06b6d4);">
+        <span class="text-white text-xs font-bold">星</span>
+      </span>
+      <span class="font-bold text-white">星耀 · 质量工具箱</span>
+    </div>
+    <p class="mb-2">纯本地质量工程师桌面工具</p>
+    <p class="text-xs text-slate-500">© 2026 星耀质量工具箱 · 数据本地存储 · 无需联网</p>
+  </div>
+</footer>
+
+<script>
+  // ===== 开场动画：生成星星 + 退出 =====
+  (function () {
+    const starsBox = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'splash star';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = (Math.random() * 2) + 's';
+      s.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+      starsBox.appendChild(s);
+    }
+    const splash = document.getElementById('splash');
+    setTimeout(() => { splash.classList.add('splash-out'); }, 2600);
+    setTimeout(() => { splash.style.display = 'none'; }, 3400);
+  })();
+</script>
+</body>
+</html>
