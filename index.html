@@ -126,6 +126,26 @@
     from { transform: scaleX(0); }
     to   { transform: scaleX(1); }
   }
+  /* 进入按钮：进度线填满后浮现，点击进入；不点 5 秒自动进 */
+  .splash-enter {
+    position: absolute; bottom: 11%; left: 50%; transform: translateX(-50%);
+    padding: 11px 52px;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(167,139,250,0.45);
+    border-radius: 999px;
+    color: rgba(237,233,254,0.95);
+    font-size: 15px; letter-spacing: 0.4em; text-indent: 0.4em;
+    font-family: "ZCOOL XiaoWei", serif;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 3s forwards;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .splash-enter:hover {
+    background: rgba(139,92,246,0.22);
+    border-color: rgba(196,181,253,0.9);
+    box-shadow: 0 0 26px rgba(139,92,246,0.35);
+  }
   /* ===== 出场：丝滑淡出 ===== */
   .splash-out {
     animation: splashFade 0.9s cubic-bezier(0.45, 0, 0.55, 1) forwards;
@@ -192,6 +212,8 @@
   <div class="splash-sub">S H I N E &nbsp; Y O U R &nbsp; Q U A L I T Y</div>
   <!-- 底部细进度线 -->
   <div class="splash-bar"><i></i></div>
+  <!-- 进入按钮：点击立即进入，5 秒后自动进入 -->
+  <button class="splash-enter" id="splashEnter">进 入</button>
 </div>
 
 <!-- ===== 导航 ===== -->
@@ -624,7 +646,7 @@
     }
   })();
 
-  // ===== 开场动画：星光点缀 + 丝滑退出 =====
+  // ===== 开场动画：星光点缀 + 点击进入 / 5 秒自动进入 =====
   (function () {
     // 40 颗星光，1.5~2.5px，带光晕，闪烁清晰但节奏各异
     const starsBox = document.getElementById('stars');
@@ -641,8 +663,15 @@
       starsBox.appendChild(s);
     }
     const splash = document.getElementById('splash');
-    setTimeout(() => { splash.classList.add('splash-out'); }, 3100);
-    setTimeout(() => { splash.style.display = 'none'; }, 4100);
+    let entered = false;
+    function enter() {
+      if (entered) return;
+      entered = true;
+      splash.classList.add('splash-out');
+      setTimeout(() => { splash.style.display = 'none'; }, 950);
+    }
+    document.getElementById('splashEnter').addEventListener('click', enter);
+    setTimeout(enter, 5000);
   })();
 </script>
 </body>
