@@ -10,10 +10,10 @@
 
 | 版本 | 大小 | 说明 |
 |------|------|------|
-| **[📦 下载安装版](https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.4/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.4.exe)** | 65.5 MB | 标准安装程序，含桌面快捷方式与卸载入口 |
-| **[🚀 下载便携版](https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.4/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.4.exe)** | 74.9 MB | 单文件 exe，双击即运行，无需安装 |
+| **[📦 下载安装版](https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.5.exe)** | 65.5 MB | 标准安装程序，含桌面快捷方式与卸载入口 |
+| **[🚀 下载便携版](https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.5.exe)** | 74.9 MB | 单文件 exe，双击即运行，无需安装 |
 
-> 支持 Windows 10 / 11（64 位）· 当前版本 v2.2.4
+> 支持 Windows 10 / 11（64 位）· 当前版本 v2.2.5
 
 ---
 
@@ -45,9 +45,11 @@
 
 ![主界面](screenshots/main.png)
 
-![SPC 制程能力分析](screenshots/spc.png)
+![SPC X-R 控制图（有数据）](screenshots/xr-chart.png)
 
-![MSA 测量系统分析](screenshots/msa.png)
+![MSA 测量系统分析（有数据）](screenshots/msa-chart.png)
+
+![QC 七大手法 · 鱼骨图](screenshots/fishbone.png)
 
 ---
 
