@@ -59,22 +59,53 @@
     50% { transform: scale(1.1); opacity: 1; }
   }
   .splash-title {
+    position: relative;
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
     font-weight: 900;
     font-size: clamp(72px, 16vw, 180px);
-    letter-spacing: 0.08em;
-    background: linear-gradient(135deg, #fff 0%, #c4b5fd 40%, #818cf8 70%, #22d3ee 100%);
+    letter-spacing: 0.12em;
+    /* 金属质感多层渐变 */
+    background: linear-gradient(180deg,
+      #ffffff 0%,
+      #e0e7ff 15%,
+      #c4b5fd 35%,
+      #a78bfa 50%,
+      #818cf8 65%,
+      #6366f1 80%,
+      #22d3ee 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* 多重投影模拟金属高光与深度 */
+    filter: drop-shadow(0 2px 4px rgba(139,92,246,0.4))
+            drop-shadow(0 0 30px rgba(129,140,248,0.5))
+            drop-shadow(0 0 60px rgba(99,102,241,0.3));
+    opacity: 0;
+    transform: rotateY(-90deg) scale(0.4) translateY(20px);
+    animation: starYaoIn 2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  }
+  /* 高光扫过 */
+  .splash-title::after {
+    content: "星耀";
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg,
+      transparent 30%,
+      rgba(255,255,255,0.8) 45%,
+      rgba(255,255,255,0.4) 50%,
+      transparent 60%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0;
-    transform: rotateY(-90deg) scale(0.4);
-    animation: starYaoIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
-    text-shadow: 0 0 80px rgba(139, 92, 246, 0.5);
+    animation: shine 3s ease-in-out 1.5s infinite;
+  }
+  @keyframes shine {
+    0%, 100% { opacity: 0; transform: translateX(-30%); }
+    50% { opacity: 1; transform: translateX(30%); }
   }
   @keyframes starYaoIn {
-    0%   { opacity: 0; transform: rotateY(-90deg) scale(0.4); }
-    60%  { opacity: 1; transform: rotateY(10deg) scale(1.05); }
-    100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+    0%   { opacity: 0; transform: rotateY(-90deg) scale(0.4) translateY(20px); filter: blur(8px); }
+    50%  { opacity: 1; filter: blur(0); }
+    70%  { transform: rotateY(10deg) scale(1.06) translateY(0); }
+    100% { opacity: 1; transform: rotateY(0deg) scale(1) translateY(0); filter: blur(0); }
   }
   .splash-sub {
     position: absolute; bottom: 28%; left: 50%; transform: translateX(-50%);
@@ -138,9 +169,7 @@
 <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/70 border-b border-slate-200/70">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="#top" class="flex items-center gap-2 font-bold text-lg">
-      <span class="w-8 h-8 rounded-lg grad-text flex items-center justify-center" style="background: linear-gradient(135deg,#6366f1,#06b6d4);">
-        <span class="text-white text-sm">星</span>
-      </span>
+      <img src="assets/wangye.png" alt="星耀" class="w-9 h-9 rounded-lg shadow-sm" />
       <span class="grad-text">星耀</span>
     </a>
     <nav class="hidden md:flex items-center gap-8 text-sm text-slate-600">
@@ -322,6 +351,12 @@
         </div>
         <div class="shot-frame">
           <img src="screenshots/msa.png" alt="MSA 测量系统分析" class="w-full h-auto" loading="lazy" />
+        </div>
+        <div class="shot-frame">
+          <img src="screenshots/xr-chart.png" alt="X-R 控制图" class="w-full h-auto" loading="lazy" />
+        </div>
+        <div class="shot-frame">
+          <img src="screenshots/fishbone.png" alt="鱼骨图因果分析" class="w-full h-auto" loading="lazy" />
         </div>
       </div>
     </div>
