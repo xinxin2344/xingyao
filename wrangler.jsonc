@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers 静态站点部署配置
+  // 仓库根目录即网页文件（index.html 在根），assets 指向当前目录
+  "name": "xingyao",
+  "compatibility_date": "2026-09-20",
+  "assets": {
+    "directory": "./"
+  }
+}
