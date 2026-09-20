@@ -132,7 +132,13 @@
       <a href="#download" class="hover:text-indigo-600 transition">下载</a>
       <a href="#faq" class="hover:text-indigo-600 transition">常见问题</a>
     </nav>
-    <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
+    <div class="flex items-center gap-2">
+      <!-- 下载加速提示图标 -->
+      <button id="speedTipBtn" class="w-9 h-9 rounded-lg hover:bg-slate-100 flex items-center justify-center transition" title="下载太慢？点这里">
+        <img src="assets/wangye.png" alt="下载加速" class="w-7 h-7 rounded" />
+      </button>
+      <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
+    </div>
   </div>
 </header>
 
@@ -145,6 +151,10 @@
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs text-indigo-600 mb-6">
         <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
         v2.2.4 已发布 · 纯本地运行 · 无需联网
+      </div>
+      <!-- 质量工具箱图标 -->
+      <div class="flex justify-center mb-6">
+        <img src="assets/qa.png" alt="质量工具箱" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl shadow-indigo-300/40 ring-4 ring-white" />
       </div>
       <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
         <span class="grad-text">质量工具箱</span>
@@ -306,6 +316,34 @@
 
 </main>
 
+<!-- ===== 下载加速弹窗 ===== -->
+<div id="speedModal" class="fixed inset-0 z-[100] bg-black/50 items-center justify-center p-4 hidden">
+  <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-bold flex items-center gap-2">
+        <img src="assets/wangye.png" class="w-6 h-6 rounded" />
+        下载太慢？这样解决
+      </h3>
+      <button id="speedModalClose" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+    </div>
+    <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
+      <div class="p-3 rounded-lg bg-indigo-50 border border-indigo-100">
+        <div class="font-semibold text-indigo-700 mb-1">方法一：用 123 云盘客户端下载（推荐）</div>
+        <p>1. 下载并安装 <a href="https://www.123pan.com/client" target="_blank" class="text-indigo-600 underline">123 云盘客户端</a><br>2. 在客户端内打开分享链接，速度最快</p>
+      </div>
+      <div class="p-3 rounded-lg bg-purple-50 border border-purple-100">
+        <div class="font-semibold text-purple-700 mb-1">方法二：用下载工具</div>
+        <p>复制下载链接，粘贴到 <b>迅雷</b>、<b>IDM</b> 等多线程下载工具，可大幅提速。</p>
+      </div>
+      <div class="p-3 rounded-lg bg-amber-50 border border-amber-100">
+        <div class="font-semibold text-amber-700 mb-1">方法三：开通 123 云盘会员</div>
+        <p>会员可获取直链下载，无需跳转，浏览器直接下载，速度拉满。</p>
+      </div>
+      <p class="text-xs text-slate-400">提示：浏览器直接下载受网络限制，客户端/工具下载通常快 5-10 倍。</p>
+    </div>
+  </div>
+</div>
+
 <!-- ===== 页脚 ===== -->
 <footer class="bg-slate-900 text-slate-400 py-10">
   <div class="max-w-7xl mx-auto px-6 text-center text-sm">
@@ -321,6 +359,25 @@
 </footer>
 
 <script>
+  // ===== 下载加速弹窗 =====
+  (function () {
+    const modal = document.getElementById('speedModal');
+    document.getElementById('speedTipBtn').addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+    document.getElementById('speedModalClose').addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    });
+  })();
+
   // ===== 开场动画：生成星星 + 退出 =====
   (function () {
     const starsBox = document.getElementById('stars');
