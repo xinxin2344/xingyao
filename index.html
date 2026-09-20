@@ -144,13 +144,88 @@
     from { opacity: 0; transform: translate(-50%, 14px); }
     to { opacity: 1; transform: translate(-50%, 0); }
   }
-  /* 出场：旋转淡出 */
+  /* ===== 出场：四角光刃向「星耀」中心收拢 ===== */
+  /* 微距吸入感：整个画面先缓缓放大 */
   .splash-out {
-    animation: splashOut 0.8s cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+    animation: splashZoom 1s cubic-bezier(0.7, 0, 0.3, 1) forwards;
   }
-  @keyframes splashOut {
-    0%   { opacity: 1; transform: scale(1) rotateY(0deg); }
-    100% { opacity: 0; transform: scale(1.1) rotateY(45deg); visibility: hidden; }
+  @keyframes splashZoom {
+    0%   { transform: scale(1); }
+    55%  { transform: scale(1.035); }
+    100% { transform: scale(1.06); }
+  }
+  /* 四道光刃：直角贴屏幕四角，斜边亮刃指向中心；收场时从四角涌入 */
+  .blade {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform;
+  }
+  .b-tl {
+    clip-path: polygon(0 0, 118% 0, 0 118%);
+    background: linear-gradient(135deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
+    transform: translate(-124%, -124%);
+  }
+  .b-tr {
+    clip-path: polygon(100% 0, -18% 0, 100% 118%);
+    background: linear-gradient(225deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
+    transform: translate(124%, -124%);
+  }
+  .b-bl {
+    clip-path: polygon(0 100%, 118% 100%, 0 -18%);
+    background: linear-gradient(45deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
+    transform: translate(-124%, 124%);
+  }
+  .b-br {
+    clip-path: polygon(100% 100%, -18% 100%, 100% -18%);
+    background: linear-gradient(-45deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
+    transform: translate(124%, 124%);
+  }
+  .splash-out .blade {
+    opacity: 1;
+    animation: bladeIn 0.72s cubic-bezier(0.82, 0, 0.18, 1) forwards;
+  }
+  .splash-out .b-tl { animation-delay: 0s; }
+  .splash-out .b-tr { animation-delay: 0.07s; }
+  .splash-out .b-bl { animation-delay: 0.14s; }
+  .splash-out .b-br { animation-delay: 0.21s; }
+  @keyframes bladeIn {
+    from { transform: var(--blade-from, translate(0, 0)); }
+    to   { transform: translate(0, 0); }
+  }
+  .splash-out .b-tl { --blade-from: translate(-124%, -124%); }
+  .splash-out .b-tr { --blade-from: translate(124%, -124%); }
+  .splash-out .b-bl { --blade-from: translate(-124%, 124%); }
+  .splash-out .b-br { --blade-from: translate(124%, 124%); }
+  /* 星耀二字：能量被收拢的光刃吸走 —— 缩小、提亮、虚化 */
+  .splash-out .splash-title {
+    animation: starYaoOut 0.66s cubic-bezier(0.6, 0, 0.9, 0.35) 0.14s forwards;
+  }
+  @keyframes starYaoOut {
+    0%   { opacity: 1; transform: scale(1);    filter: blur(0) brightness(1); }
+    55%  { opacity: 1; transform: scale(0.72); filter: blur(2px) brightness(1.55); }
+    100% { opacity: 0; transform: scale(0.36); filter: blur(10px) brightness(2.4); }
+  }
+  /* 副标题同步淡出 */
+  .splash-out .splash-sub {
+    animation: subOut 0.4s ease 0.1s forwards;
+  }
+  @keyframes subOut {
+    to { opacity: 0; transform: translate(-50%, -10px); }
+  }
+  /* 中心白光：光刃合拢一瞬间爆发 */
+  .splash-flash {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(196,181,253,0.55) 26%, rgba(129,140,248,0.25) 45%, transparent 64%);
+    opacity: 0;
+  }
+  .splash-out .splash-flash {
+    animation: flashPop 0.5s ease-out 0.58s forwards;
+  }
+  @keyframes flashPop {
+    0%   { opacity: 0; transform: scale(0.15); }
+    45%  { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.7); }
   }
 
   /* 通用渐变文字 */
@@ -197,6 +272,13 @@
   <div class="splash-ring2"></div>
   <div class="splash-title">星耀</div>
   <div class="splash-sub">Q U A L I T Y &nbsp; T O O L B O X</div>
+  <!-- 四角光刃：收场时从四角向「星耀」中心收拢 -->
+  <div class="blade b-tl"></div>
+  <div class="blade b-tr"></div>
+  <div class="blade b-bl"></div>
+  <div class="blade b-br"></div>
+  <!-- 光刃合拢的中心白光 -->
+  <div class="splash-flash"></div>
 </div>
 
 <!-- ===== 导航 ===== -->
@@ -642,8 +724,8 @@
       starsBox.appendChild(s);
     }
     const splash = document.getElementById('splash');
-    setTimeout(() => { splash.classList.add('splash-out'); }, 2600);
-    setTimeout(() => { splash.style.display = 'none'; }, 3400);
+    setTimeout(() => { splash.classList.add('splash-out'); }, 2500);
+    setTimeout(() => { splash.style.display = 'none'; }, 3650);
   })();
 </script>
 </body>
