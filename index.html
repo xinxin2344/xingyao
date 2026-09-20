@@ -44,49 +44,13 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
-  /* 背景星星 */
-  .star {
-    position: absolute; width: 2px; height: 2px; border-radius: 50%;
-    background: #fff; opacity: 0;
-    animation: twinkle 2.5s ease-in-out infinite;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 0.9; transform: scale(1.5); }
-  }
-  /* 中心光晕 */
+  /* 中心光晕（静态微光，不闪不转） */
   .splash-glow {
     position: absolute; width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(99,102,241,0.18) 35%, transparent 70%);
+    background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, rgba(99,102,241,0.1) 35%, transparent 70%);
     filter: blur(30px);
-    animation: pulseGlow 3s ease-in-out infinite;
   }
-  @keyframes pulseGlow {
-    0%, 100% { transform: scale(0.8); opacity: 0.5; }
-    50% { transform: scale(1.15); opacity: 1; }
-  }
-  /* 旋转光环 */
-  .splash-ring {
-    position: absolute; width: 320px; height: 320px; border-radius: 50%;
-    border: 1px solid rgba(139,92,246,0.3);
-    animation: ringRotate 8s linear infinite;
-  }
-  .splash-ring::before {
-    content: ""; position: absolute; top: -3px; left: 50%;
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #c4b5fd; box-shadow: 0 0 12px #a78bfa;
-    transform: translateX(-50%);
-  }
-  .splash-ring2 {
-    position: absolute; width: 240px; height: 240px; border-radius: 50%;
-    border: 1px dashed rgba(34,211,238,0.25);
-    animation: ringRotate 12s linear infinite reverse;
-  }
-  @keyframes ringRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  /* 标题 —— 思源宋体 + 金属质感 + 旋转淡入 */
+  /* 标题 —— 思源宋体 + 金属质感 + 简洁淡入 */
   .splash-title {
     position: relative;
     font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
@@ -103,36 +67,14 @@
       #22d3ee 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 6px rgba(139,92,246,0.5))
-            drop-shadow(0 0 40px rgba(129,140,248,0.55))
-            drop-shadow(0 0 80px rgba(99,102,241,0.35));
+    filter: drop-shadow(0 2px 6px rgba(139,92,246,0.4))
+            drop-shadow(0 0 32px rgba(129,140,248,0.35));
     opacity: 0;
-    transform: rotateY(120deg) scale(0.3);
-    animation: starYaoIn 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
-  }
-  /* 高光扫过 */
-  .splash-title::after {
-    content: "星耀";
-    position: absolute; inset: 0;
-    background: linear-gradient(105deg,
-      transparent 25%,
-      rgba(255,255,255,0.85) 42%,
-      rgba(255,255,255,0.3) 50%,
-      transparent 65%);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0;
-    animation: shine 3.5s ease-in-out 1.8s infinite;
-  }
-  @keyframes shine {
-    0%, 100% { opacity: 0; transform: translateX(-35%); }
-    50% { opacity: 1; transform: translateX(35%); }
+    animation: starYaoIn 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
   }
   @keyframes starYaoIn {
-    0%   { opacity: 0; transform: rotateY(120deg) scale(0.3); filter: blur(12px); }
-    40%  { opacity: 1; filter: blur(0); }
-    65%  { transform: rotateY(-12deg) scale(1.08); }
-    100% { opacity: 1; transform: rotateY(0deg) scale(1); filter: blur(0); }
+    0%   { opacity: 0; letter-spacing: 0.55em; filter: blur(10px); }
+    100% { opacity: 1; letter-spacing: 0.15em; filter: blur(0); }
   }
   .splash-sub {
     position: absolute; bottom: 26%; left: 50%; transform: translateX(-50%);
@@ -203,8 +145,8 @@
   }
   @keyframes starYaoOut {
     0%   { opacity: 1; transform: scale(1);    filter: blur(0) brightness(1); }
-    55%  { opacity: 1; transform: scale(0.72); filter: blur(2px) brightness(1.55); }
-    100% { opacity: 0; transform: scale(0.36); filter: blur(10px) brightness(2.4); }
+    55%  { opacity: 1; transform: scale(0.78); filter: blur(1px) brightness(1.2); }
+    100% { opacity: 0; transform: scale(0.45); filter: blur(6px) brightness(1.35); }
   }
   /* 副标题同步淡出 */
   .splash-out .splash-sub {
@@ -224,8 +166,8 @@
   }
   @keyframes flashPop {
     0%   { opacity: 0; transform: scale(0.15); }
-    45%  { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(1.7); }
+    45%  { opacity: 0.55; transform: scale(0.9); }
+    100% { opacity: 0; transform: scale(1.5); }
   }
 
   /* 通用渐变文字 */
@@ -265,11 +207,7 @@
 
 <!-- ===== 开场动画 ===== -->
 <div id="splash" class="splash" aria-hidden="true">
-  <!-- 背景星星 -->
-  <div id="stars"></div>
   <div class="splash-glow"></div>
-  <div class="splash-ring"></div>
-  <div class="splash-ring2"></div>
   <div class="splash-title">星耀</div>
   <div class="splash-sub">Q U A L I T Y &nbsp; T O O L B O X</div>
   <!-- 四角光刃：收场时从四角向「星耀」中心收拢 -->
@@ -711,18 +649,8 @@
     }
   })();
 
-  // ===== 开场动画：生成星星 + 退出 =====
+  // ===== 开场动画：退出时机 =====
   (function () {
-    const starsBox = document.getElementById('stars');
-    for (let i = 0; i < 80; i++) {
-      const s = document.createElement('div');
-      s.className = 'star';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.animationDelay = (Math.random() * 2) + 's';
-      s.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-      starsBox.appendChild(s);
-    }
     const splash = document.getElementById('splash');
     setTimeout(() => { splash.classList.add('splash-out'); }, 2500);
     setTimeout(() => { splash.style.display = 'none'; }, 3650);
