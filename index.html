@@ -37,18 +37,12 @@
 
   html { scroll-behavior: smooth; }
 
-  /* ===== 开场动画：星耀 · 高级版 ===== */
+  /* ===== 开场动画：星耀 · Steam 大屏风 ===== */
   .splash {
     position: fixed; inset: 0; z-index: 9999;
-    background: radial-gradient(ellipse at 50% 40%, #1e1b4b 0%, #0f172a 55%, #020617 100%);
+    background: radial-gradient(ellipse at 50% 45%, #10131c 0%, #07080d 55%, #020204 100%);
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
-  }
-  /* 中心光晕（静态微光，不闪不转） */
-  .splash-glow {
-    position: absolute; width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.22) 0%, rgba(99,102,241,0.1) 35%, transparent 70%);
-    filter: blur(30px);
   }
   /* 标题 —— 思源宋体 + 金属质感 + 简洁淡入 */
   .splash-title {
@@ -67,107 +61,77 @@
       #22d3ee 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 6px rgba(139,92,246,0.4))
-            drop-shadow(0 0 32px rgba(129,140,248,0.35));
+    filter: drop-shadow(0 2px 6px rgba(139,92,246,0.35))
+            drop-shadow(0 0 28px rgba(129,140,248,0.28));
     opacity: 0;
-    animation: starYaoIn 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    animation: starYaoIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
   }
   @keyframes starYaoIn {
     0%   { opacity: 0; letter-spacing: 0.55em; filter: blur(10px); }
     100% { opacity: 1; letter-spacing: 0.15em; filter: blur(0); }
   }
+  /* Steam 式横扫流光：一条细光线水平掠过 logo（仅一次） */
+  .splash-scan {
+    position: absolute; left: 0; top: 50%;
+    width: 38vw; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(196,181,253,0.9) 45%, rgba(255,255,255,0.95) 55%, transparent);
+    box-shadow: 0 0 18px rgba(167,139,250,0.7);
+    transform: translateX(-40vw);
+    opacity: 0;
+    animation: scanLine 1s cubic-bezier(0.65, 0, 0.35, 1) 1.15s forwards;
+  }
+  @keyframes scanLine {
+    0%   { opacity: 0; transform: translateX(-45vw); }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { opacity: 0; transform: translateX(110vw); }
+  }
   .splash-sub {
     position: absolute; bottom: 26%; left: 50%; transform: translateX(-50%);
-    color: rgba(255,255,255,0.65); font-size: 13px; letter-spacing: 0.5em;
+    color: rgba(255,255,255,0.55); font-size: 13px; letter-spacing: 0.5em;
     font-family: "ZCOOL XiaoWei", serif;
-    opacity: 0; animation: fadeUp 1s ease 1.8s forwards;
+    opacity: 0; animation: fadeUp 1s ease 1.4s forwards;
   }
   @keyframes fadeUp {
     from { opacity: 0; transform: translate(-50%, 14px); }
     to { opacity: 1; transform: translate(-50%, 0); }
   }
-  /* ===== 出场：四角光刃向「星耀」中心收拢 ===== */
-  /* 微距吸入感：整个画面先缓缓放大 */
-  .splash-out {
-    animation: splashZoom 1s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  /* Steam 式底部细进度线 */
+  .splash-bar {
+    position: absolute; bottom: 18%; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 2px; border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
   }
-  @keyframes splashZoom {
-    0%   { transform: scale(1); }
-    55%  { transform: scale(1.035); }
-    100% { transform: scale(1.06); }
-  }
-  /* 四道光刃：直角贴屏幕四角，斜边亮刃指向中心；收场时从四角涌入 */
-  .blade {
+  .splash-bar i {
     position: absolute; inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    will-change: transform;
+    background: linear-gradient(90deg, #8b5cf6, #a78bfa 60%, #22d3ee);
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: barFill 1.3s cubic-bezier(0.4, 0, 0.2, 1) 1.6s forwards;
   }
-  .b-tl {
-    clip-path: polygon(0 0, 118% 0, 0 118%);
-    background: linear-gradient(135deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
-    transform: translate(-124%, -124%);
+  @keyframes barFill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
   }
-  .b-tr {
-    clip-path: polygon(100% 0, -18% 0, 100% 118%);
-    background: linear-gradient(225deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
-    transform: translate(124%, -124%);
+  /* ===== 出场：Steam 式干净淡出 ===== */
+  .splash-out {
+    animation: splashFade 0.6s ease forwards;
   }
-  .b-bl {
-    clip-path: polygon(0 100%, 118% 100%, 0 -18%);
-    background: linear-gradient(45deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
-    transform: translate(-124%, 124%);
+  @keyframes splashFade {
+    to { opacity: 0; }
   }
-  .b-br {
-    clip-path: polygon(100% 100%, -18% 100%, 100% -18%);
-    background: linear-gradient(-45deg, #020617 0%, #14123a 43%, rgba(139,92,246,0.95) 49.6%, #e0e7ff 50%, rgba(34,211,238,0.75) 50.4%, #14123a 57%, #020617 100%);
-    transform: translate(124%, 124%);
-  }
-  .splash-out .blade {
-    opacity: 1;
-    animation: bladeIn 0.72s cubic-bezier(0.82, 0, 0.18, 1) forwards;
-  }
-  .splash-out .b-tl { animation-delay: 0s; }
-  .splash-out .b-tr { animation-delay: 0.07s; }
-  .splash-out .b-bl { animation-delay: 0.14s; }
-  .splash-out .b-br { animation-delay: 0.21s; }
-  @keyframes bladeIn {
-    from { transform: var(--blade-from, translate(0, 0)); }
-    to   { transform: translate(0, 0); }
-  }
-  .splash-out .b-tl { --blade-from: translate(-124%, -124%); }
-  .splash-out .b-tr { --blade-from: translate(124%, -124%); }
-  .splash-out .b-bl { --blade-from: translate(-124%, 124%); }
-  .splash-out .b-br { --blade-from: translate(124%, 124%); }
-  /* 星耀二字：能量被收拢的光刃吸走 —— 缩小、提亮、虚化 */
   .splash-out .splash-title {
-    animation: starYaoOut 0.66s cubic-bezier(0.6, 0, 0.9, 0.35) 0.14s forwards;
+    animation: titleOut 0.55s ease forwards;
   }
-  @keyframes starYaoOut {
-    0%   { opacity: 1; transform: scale(1);    filter: blur(0) brightness(1); }
-    55%  { opacity: 1; transform: scale(0.78); filter: blur(1px) brightness(1.2); }
-    100% { opacity: 0; transform: scale(0.45); filter: blur(6px) brightness(1.35); }
+  @keyframes titleOut {
+    to { opacity: 0; letter-spacing: 0.4em; filter: blur(4px); }
   }
-  /* 副标题同步淡出 */
-  .splash-out .splash-sub {
-    animation: subOut 0.4s ease 0.1s forwards;
-  }
-  @keyframes subOut {
-    to { opacity: 0; transform: translate(-50%, -10px); }
-  }
-  /* 中心白光：光刃合拢一瞬间爆发 */
-  .splash-flash {
-    position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(196,181,253,0.55) 26%, rgba(129,140,248,0.25) 45%, transparent 64%);
+  .splash-out .splash-sub,
+  .splash-out .splash-bar,
+  .splash-out .splash-scan {
     opacity: 0;
-  }
-  .splash-out .splash-flash {
-    animation: flashPop 0.5s ease-out 0.58s forwards;
-  }
-  @keyframes flashPop {
-    0%   { opacity: 0; transform: scale(0.15); }
-    45%  { opacity: 0.55; transform: scale(0.9); }
-    100% { opacity: 0; transform: scale(1.5); }
+    transition: opacity 0.3s ease;
   }
 
   /* 通用渐变文字 */
@@ -207,16 +171,12 @@
 
 <!-- ===== 开场动画 ===== -->
 <div id="splash" class="splash" aria-hidden="true">
-  <div class="splash-glow"></div>
   <div class="splash-title">星耀</div>
+  <!-- Steam 式横扫流光 -->
+  <div class="splash-scan"></div>
   <div class="splash-sub">Q U A L I T Y &nbsp; T O O L B O X</div>
-  <!-- 四角光刃：收场时从四角向「星耀」中心收拢 -->
-  <div class="blade b-tl"></div>
-  <div class="blade b-tr"></div>
-  <div class="blade b-bl"></div>
-  <div class="blade b-br"></div>
-  <!-- 光刃合拢的中心白光 -->
-  <div class="splash-flash"></div>
+  <!-- 底部细进度线 -->
+  <div class="splash-bar"><i></i></div>
 </div>
 
 <!-- ===== 导航 ===== -->
@@ -649,11 +609,11 @@
     }
   })();
 
-  // ===== 开场动画：退出时机 =====
+  // ===== 开场动画：退出时机（进度线 2.9s 填满，稍作停留后淡出）=====
   (function () {
     const splash = document.getElementById('splash');
-    setTimeout(() => { splash.classList.add('splash-out'); }, 2500);
-    setTimeout(() => { splash.style.display = 'none'; }, 3650);
+    setTimeout(() => { splash.classList.add('splash-out'); }, 3050);
+    setTimeout(() => { splash.style.display = 'none'; }, 3750);
   })();
 </script>
 </body>
