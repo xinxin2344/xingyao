@@ -43,13 +43,34 @@
 
 ## 🖼 界面预览
 
-![主界面](screenshots/main.png)
+**8D 完整报告** — D0~D8 全流程结构化填写，AI 助手（右下角悬浮球）可一键生成整份报告
 
-![SPC X-R 控制图（有数据）](screenshots/xr-chart.png)
+![8D 完整报告](screenshots/main.png)
 
-![MSA 测量系统分析（有数据）](screenshots/msa-chart.png)
+**SPC 制程能力分析** — 125 件实测数据自动计算 Cp/Cpk、Pp/Ppk、Pm/Pmk，直方图叠加 USL/LSL 规格线（AIAG-VDA 2026 新版）
 
-![QC 七大手法 · 鱼骨图](screenshots/fishbone.png)
+![SPC 制程能力分析](screenshots/spc.png)
+
+**MSA-GRR 测量系统分析** — 3 操作员 × 10 零件 × 3 次重复，自动判定合格与否
+
+![MSA-GRR 测量系统分析](screenshots/msa.png)
+
+**X-R 均值-极差控制图** — 自动计算控制限，异常点标红预警
+
+![X-R 控制图](screenshots/xr-chart.png)
+
+**鱼骨图因果分析** — 人机料法环测六大类，编辑即刷新，导出高清嵌入
+
+![鱼骨图因果分析](screenshots/fishbone.png)
+
+---
+
+## 📜 发布历史
+
+- **v2.2.5（最新）** — AI 填写全面升级：8D 补齐 D1~D6 全部字段，新增 QC 直方图/散布图/层别法/鱼骨图与 MSA 数据填写；修复图表横轴文字显示不全；窗口缩放不再遮挡日历与 AI 面板
+- **v2.2.4** — 三栏布局优化：AI 面板可嵌入主区域与日历栏之间，日历栏可折叠，各面板最小宽度限制
+- **v2.2.3** — AI 聊天面板稳定性修复；新增 AI 一句话自动填表
+- **v2.2.2** — SPC 2026 新版：Pm/Pmk、Pp/Ppk 研究与正态性检验；Gitee 直链下载
 
 ---
 

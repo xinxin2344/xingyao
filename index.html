@@ -210,6 +210,7 @@
       <a href="#features" class="hover:text-indigo-600 transition">功能</a>
       <a href="#screenshots" class="hover:text-indigo-600 transition">截图</a>
       <a href="#download" class="hover:text-indigo-600 transition">下载</a>
+      <a href="#changelog" class="hover:text-indigo-600 transition">发布历史</a>
       <a href="#faq" class="hover:text-indigo-600 transition">常见问题</a>
     </nav>
     <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
@@ -369,25 +370,84 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-14">
         <h2 class="text-3xl md:text-4xl font-bold mb-3">界面预览</h2>
-        <p class="text-slate-500">简洁现代，专注于内容本身</p>
+        <p class="text-slate-500">真实数据填充，所见即所得</p>
       </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="shot-frame md:col-span-2">
-          <img src="screenshots/main.png" alt="主界面" class="w-full h-auto" loading="lazy" />
+      <div class="space-y-10">
+        <!-- 8D -->
+        <figure class="shot-frame">
+          <img src="screenshots/main.png" alt="8D 完整报告" class="w-full h-auto" loading="lazy" />
+          <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+            <b class="text-slate-800">8D 完整报告</b>
+            <span class="text-slate-500 text-sm ml-2">D0~D8 全流程结构化填写，AI 助手（右下角悬浮球）可一键生成整份报告，支持导出 Word / Excel / PDF</span>
+          </figcaption>
+        </figure>
+        <!-- SPC + MSA -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <figure class="shot-frame">
+            <img src="screenshots/spc.png" alt="SPC 制程能力分析" class="w-full h-auto" loading="lazy" />
+            <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+              <b class="text-slate-800">SPC 制程能力分析</b>
+              <span class="block text-slate-500 text-sm mt-1">125 件实测数据自动计算 Cp/Cpk、Pp/Ppk、Pm/Pmk，直方图叠加 USL/LSL 规格线与均值参考线，附正态性检验与 OCAP 失控行动计划（AIAG-VDA 2026 新版）</span>
+            </figcaption>
+          </figure>
+          <figure class="shot-frame">
+            <img src="screenshots/msa.png" alt="MSA 测量系统分析" class="w-full h-auto" loading="lazy" />
+            <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+              <b class="text-slate-800">MSA-GRR 测量系统分析</b>
+              <span class="block text-slate-500 text-sm mt-1">经典 3 操作员 × 10 零件 × 3 次重复方案，自动计算 EV / AV / GRR / PV / NDC 并给出合格判定，均值对比图直观呈现再现性差异</span>
+            </figcaption>
+          </figure>
         </div>
-        <div class="shot-frame">
-          <img src="screenshots/spc.png" alt="SPC 制程能力分析" class="w-full h-auto" loading="lazy" />
-        </div>
-        <div class="shot-frame">
-          <img src="screenshots/msa-chart.png" alt="MSA 测量系统分析" class="w-full h-auto" loading="lazy" />
-        </div>
-        <div class="shot-frame">
-          <img src="screenshots/xr-chart.png" alt="X-R 控制图" class="w-full h-auto" loading="lazy" />
-        </div>
-        <div class="shot-frame">
-          <img src="screenshots/fishbone.png" alt="鱼骨图因果分析" class="w-full h-auto" loading="lazy" />
+        <!-- X-R + 鱼骨图 -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <figure class="shot-frame">
+            <img src="screenshots/xr-chart.png" alt="X-R 控制图" class="w-full h-auto" loading="lazy" />
+            <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+              <b class="text-slate-800">X-R 均值-极差控制图</b>
+              <span class="block text-slate-500 text-sm mt-1">12 子组 × 5 测量位，自动计算控制限（UCL / CL / LCL）并标红异常点，超限即刻预警特殊原因</span>
+            </figcaption>
+          </figure>
+          <figure class="shot-frame">
+            <img src="screenshots/fishbone.png" alt="鱼骨图因果分析" class="w-full h-auto" loading="lazy" />
+            <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+              <b class="text-slate-800">鱼骨图因果分析</b>
+              <span class="block text-slate-500 text-sm mt-1">人-机-料-法-环-测六大类自由增删原因与子原因，左侧编辑右侧鱼骨图实时刷新，导出报告时以高清图片嵌入</span>
+            </figcaption>
+          </figure>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== 发布历史 ===== -->
+  <section id="changelog" class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">发布历史</h2>
+        <p class="text-slate-500">持续迭代，越用越好用</p>
+      </div>
+      <ol class="relative border-l-2 border-indigo-100 space-y-10 ml-3">
+        <li class="ml-8">
+          <span class="absolute -left-[11px] flex items-center justify-center w-5 h-5 bg-indigo-600 rounded-full ring-4 ring-indigo-100"></span>
+          <h3 class="font-bold text-lg mb-1">v2.2.5 <span class="text-xs font-normal text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full align-middle">最新</span></h3>
+          <p class="text-slate-500 text-sm leading-6">AI 助手填写全面升级：8D 补齐 D1~D6 全部字段（团队/遏制/5Why/永久措施/实施记录），新增 QC 直方图、散布图、层别法、鱼骨图与 MSA 操作员数据填写；修复图表横轴文字显示不全；窗口缩放时日历与 AI 面板不再被遮挡。</p>
+        </li>
+        <li class="ml-8">
+          <span class="absolute -left-[11px] flex items-center justify-center w-5 h-5 bg-slate-300 rounded-full ring-4 ring-slate-100"></span>
+          <h3 class="font-bold text-lg mb-1">v2.2.4</h3>
+          <p class="text-slate-500 text-sm leading-6">界面三栏布局优化：AI 助手面板可嵌入主区域与日历栏之间并自由拖宽，日历栏支持折叠，主区域与各面板增加最小宽度限制。</p>
+        </li>
+        <li class="ml-8">
+          <span class="absolute -left-[11px] flex items-center justify-center w-5 h-5 bg-slate-300 rounded-full ring-4 ring-slate-100"></span>
+          <h3 class="font-bold text-lg mb-1">v2.2.3</h3>
+          <p class="text-slate-500 text-sm leading-6">AI 助手聊天面板稳定性修复；新增 AI 一句话自动填表（识别 [OP] 指令直接写入对应页面字段）。</p>
+        </li>
+        <li class="ml-8">
+          <span class="absolute -left-[11px] flex items-center justify-center w-5 h-5 bg-slate-300 rounded-full ring-4 ring-slate-100"></span>
+          <h3 class="font-bold text-lg mb-1">v2.2.2</h3>
+          <p class="text-slate-500 text-sm leading-6">SPC 2026 新版：新增 Pm/Pmk 机器性能研究、Pp/Ppk 初始过程研究与正态性检验；Gitee 直链下载加速。</p>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -512,6 +572,7 @@
           <li><a href="#features" class="hover:text-white transition">核心功能</a></li>
           <li><a href="#screenshots" class="hover:text-white transition">界面预览</a></li>
           <li><a href="#download" class="hover:text-white transition">下载安装</a></li>
+          <li><a href="#changelog" class="hover:text-white transition">发布历史</a></li>
           <li><a href="#faq" class="hover:text-white transition">常见问题</a></li>
         </ul>
       </div>
