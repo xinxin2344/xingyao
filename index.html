@@ -22,6 +22,8 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="星耀质量工具箱" />
 <meta name="twitter:description" content="纯本地质量工程师桌面工具，SPC/MSA/FMEA/8D 一站式解决。" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link href="https://fonts.googleapis.cn/css2?family=Noto+Serif+SC:wght@700;900&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root {
@@ -32,93 +34,120 @@
 
   html { scroll-behavior: smooth; }
 
-  /* ===== 开场动画：星耀旋转淡入 ===== */
+  /* ===== 开场动画：星耀 · 高级版 ===== */
   .splash {
     position: fixed; inset: 0; z-index: 9999;
-    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+    background: radial-gradient(ellipse at 50% 40%, #1e1b4b 0%, #0f172a 55%, #020617 100%);
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
+  /* 背景星星 */
   .splash.star {
     position: absolute; width: 2px; height: 2px; border-radius: 50%;
     background: #fff; opacity: 0;
-    animation: twinkle 2s ease-in-out infinite;
+    animation: twinkle 2.5s ease-in-out infinite;
   }
   @keyframes twinkle {
     0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 1; transform: scale(1.4); }
+    50% { opacity: 0.9; transform: scale(1.5); }
   }
+  /* 中心光晕 */
   .splash-glow {
-    position: absolute; width: 420px; height: 420px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.35) 0%, rgba(99,102,241,0.15) 40%, transparent 70%);
-    filter: blur(20px);
+    position: absolute; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.4) 0%, rgba(99,102,241,0.18) 35%, transparent 70%);
+    filter: blur(30px);
     animation: pulseGlow 3s ease-in-out infinite;
   }
   @keyframes pulseGlow {
-    0%, 100% { transform: scale(0.85); opacity: 0.6; }
-    50% { transform: scale(1.1); opacity: 1; }
+    0%, 100% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 1; }
   }
+  /* 旋转光环 */
+  .splash-ring {
+    position: absolute; width: 320px; height: 320px; border-radius: 50%;
+    border: 1px solid rgba(139,92,246,0.3);
+    animation: ringRotate 8s linear infinite;
+  }
+  .splash-ring::before {
+    content: ""; position: absolute; top: -3px; left: 50%;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #c4b5fd; box-shadow: 0 0 12px #a78bfa;
+    transform: translateX(-50%);
+  }
+  .splash-ring2 {
+    position: absolute; width: 240px; height: 240px; border-radius: 50%;
+    border: 1px dashed rgba(34,211,238,0.25);
+    animation: ringRotate 12s linear infinite reverse;
+  }
+  @keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  /* 标题 —— 思源宋体 + 金属质感 + 旋转淡入 */
   .splash-title {
     position: relative;
-    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
     font-weight: 900;
-    font-size: clamp(72px, 16vw, 180px);
-    letter-spacing: 0.12em;
-    /* 金属质感多层渐变 */
+    font-size: clamp(80px, 18vw, 200px);
+    letter-spacing: 0.15em;
     background: linear-gradient(180deg,
       #ffffff 0%,
-      #e0e7ff 15%,
-      #c4b5fd 35%,
-      #a78bfa 50%,
-      #818cf8 65%,
-      #6366f1 80%,
+      #f5f3ff 12%,
+      #ddd6fe 30%,
+      #c4b5fd 48%,
+      #a78bfa 62%,
+      #818cf8 78%,
       #22d3ee 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    /* 多重投影模拟金属高光与深度 */
-    filter: drop-shadow(0 2px 4px rgba(139,92,246,0.4))
-            drop-shadow(0 0 30px rgba(129,140,248,0.5))
-            drop-shadow(0 0 60px rgba(99,102,241,0.3));
+    filter: drop-shadow(0 2px 6px rgba(139,92,246,0.5))
+            drop-shadow(0 0 40px rgba(129,140,248,0.55))
+            drop-shadow(0 0 80px rgba(99,102,241,0.35));
     opacity: 0;
-    transform: rotateY(-90deg) scale(0.4) translateY(20px);
-    animation: starYaoIn 2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    transform: rotateY(120deg) scale(0.3);
+    animation: starYaoIn 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
   }
   /* 高光扫过 */
   .splash-title::after {
     content: "星耀";
     position: absolute; inset: 0;
-    background: linear-gradient(110deg,
-      transparent 30%,
-      rgba(255,255,255,0.8) 45%,
-      rgba(255,255,255,0.4) 50%,
-      transparent 60%);
+    background: linear-gradient(105deg,
+      transparent 25%,
+      rgba(255,255,255,0.85) 42%,
+      rgba(255,255,255,0.3) 50%,
+      transparent 65%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0;
-    animation: shine 3s ease-in-out 1.5s infinite;
+    animation: shine 3.5s ease-in-out 1.8s infinite;
   }
   @keyframes shine {
-    0%, 100% { opacity: 0; transform: translateX(-30%); }
-    50% { opacity: 1; transform: translateX(30%); }
+    0%, 100% { opacity: 0; transform: translateX(-35%); }
+    50% { opacity: 1; transform: translateX(35%); }
   }
   @keyframes starYaoIn {
-    0%   { opacity: 0; transform: rotateY(-90deg) scale(0.4) translateY(20px); filter: blur(8px); }
-    50%  { opacity: 1; filter: blur(0); }
-    70%  { transform: rotateY(10deg) scale(1.06) translateY(0); }
-    100% { opacity: 1; transform: rotateY(0deg) scale(1) translateY(0); filter: blur(0); }
+    0%   { opacity: 0; transform: rotateY(120deg) scale(0.3); filter: blur(12px); }
+    40%  { opacity: 1; filter: blur(0); }
+    65%  { transform: rotateY(-12deg) scale(1.08); }
+    100% { opacity: 1; transform: rotateY(0deg) scale(1); filter: blur(0); }
   }
   .splash-sub {
-    position: absolute; bottom: 28%; left: 50%; transform: translateX(-50%);
-    color: rgba(255,255,255,0.7); font-size: 14px; letter-spacing: 0.4em;
-    opacity: 0; animation: fadeUp 0.8s ease 1.6s forwards;
+    position: absolute; bottom: 26%; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.65); font-size: 13px; letter-spacing: 0.5em;
+    font-family: "ZCOOL XiaoWei", serif;
+    opacity: 0; animation: fadeUp 1s ease 1.8s forwards;
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translate(-50%, 12px); }
+    from { opacity: 0; transform: translate(-50%, 14px); }
     to { opacity: 1; transform: translate(-50%, 0); }
   }
-  .splash-out { animation: splashOut 0.7s ease forwards; }
+  /* 出场：旋转淡出 */
+  .splash-out {
+    animation: splashOut 0.8s cubic-bezier(0.55, 0, 0.55, 0.2) forwards;
+  }
   @keyframes splashOut {
-    to { opacity: 0; transform: scale(1.05); visibility: hidden; }
+    0%   { opacity: 1; transform: scale(1) rotateY(0deg); }
+    100% { opacity: 0; transform: scale(1.1) rotateY(45deg); visibility: hidden; }
   }
 
   /* 通用渐变文字 */
@@ -161,6 +190,8 @@
   <!-- 背景星星 -->
   <div id="stars"></div>
   <div class="splash-glow"></div>
+  <div class="splash-ring"></div>
+  <div class="splash-ring2"></div>
   <div class="splash-title">星耀</div>
   <div class="splash-sub">Q U A L I T Y &nbsp; T O O L B O X</div>
 </div>
@@ -178,13 +209,7 @@
       <a href="#download" class="hover:text-indigo-600 transition">下载</a>
       <a href="#faq" class="hover:text-indigo-600 transition">常见问题</a>
     </nav>
-    <div class="flex items-center gap-2">
-      <!-- 下载加速提示图标 -->
-      <button id="speedTipBtn" class="w-9 h-9 rounded-lg hover:bg-slate-100 flex items-center justify-center transition" title="下载太慢？点这里">
-        <img src="assets/wangye.png" alt="下载加速" class="w-7 h-7 rounded" />
-      </button>
-      <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
-    </div>
+    <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
   </div>
 </header>
 
@@ -196,7 +221,7 @@
     <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs text-indigo-600 mb-6">
         <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
-        v2.2.4 已发布 · 纯本地运行 · 无需联网
+        v2.2.5 已发布 · SPC 2026 新版 · 纯本地运行
       </div>
       <!-- 质量工具箱图标 -->
       <div class="flex justify-center mb-6">
@@ -217,11 +242,11 @@
       </div>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.4/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.4.exe" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-indigo-500/30 flex items-center gap-2">
+        <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.4.exe" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-indigo-500/30 flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
           下载安装版
         </a>
-        <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.4/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.4.exe" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
+        <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.5.exe" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           下载便携版
         </a>
@@ -243,10 +268,11 @@
           <h3 class="text-lg font-bold mb-2">8D 完整报告</h3>
           <p class="text-sm text-slate-600 leading-relaxed">D0-D8 全流程，内嵌 5Why 根因分析与鱼骨图，支持图片粘贴，一键导出 Word / Excel / PDF。</p>
         </div>
-        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100">
+        <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-white border border-purple-100 relative overflow-hidden">
+          <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[10px] font-bold shadow">2026 新版</div>
           <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg font-bold mb-4">SP</div>
           <h3 class="text-lg font-bold mb-2">SPC 制程能力</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">支持 Pm/Pmk、Pp/Ppk、Cp/Cpk 三种研究，X-R 控制图、正态性检验、OCAP 行动计划全包含。</p>
+          <p class="text-sm text-slate-600 leading-relaxed">2026 新版：支持 Pm/Pmk、Pp/Ppk、Cp/Cpk 三种研究，X-R 控制图、正态性检验、OCAP 行动计划全包含。</p>
         </div>
         <div class="feature-card p-6 rounded-2xl bg-gradient-to-br from-cyan-50 to-white border border-cyan-100">
           <div class="w-12 h-12 rounded-xl bg-cyan-600 text-white flex items-center justify-center text-lg font-bold mb-4">MS</div>
@@ -350,7 +376,7 @@
           <img src="screenshots/spc.png" alt="SPC 制程能力分析" class="w-full h-auto" loading="lazy" />
         </div>
         <div class="shot-frame">
-          <img src="screenshots/msa.png" alt="MSA 测量系统分析" class="w-full h-auto" loading="lazy" />
+          <img src="screenshots/msa-chart.png" alt="MSA 测量系统分析" class="w-full h-auto" loading="lazy" />
         </div>
         <div class="shot-frame">
           <img src="screenshots/xr-chart.png" alt="X-R 控制图" class="w-full h-auto" loading="lazy" />
@@ -367,7 +393,7 @@
     <div class="max-w-5xl mx-auto px-6">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-bold mb-3">立即下载</h2>
-        <p class="text-slate-500">当前版本 v2.2.4 · Windows 10 及以上</p>
+        <p class="text-slate-500">当前版本 v2.2.5 · Windows 10 及以上</p>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white rounded-2xl p-8 shadow-xl shadow-indigo-100/50 border border-indigo-100 text-center">
@@ -376,8 +402,8 @@
           </div>
           <h3 class="text-xl font-bold mb-1">安装版</h3>
           <p class="text-sm text-slate-500 mb-6">标准 NSIS 安装程序，含桌面快捷方式与开始菜单</p>
-          <div class="text-xs text-slate-400 mb-4">质量工具箱 Setup 2.2.4.exe · 65.5 MB</div>
-          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.4/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.4.exe" class="btn-primary block text-white py-3 rounded-xl font-semibold">下载安装版</a>
+          <div class="text-xs text-slate-400 mb-4">质量工具箱 Setup 2.2.5.exe · 65.5 MB</div>
+          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.4.exe" class="btn-primary block text-white py-3 rounded-xl font-semibold">下载安装版</a>
           <p class="text-[11px] text-slate-400 mt-3">支持自定义安装路径 · 可卸载</p>
         </div>
         <div class="bg-white rounded-2xl p-8 shadow-xl shadow-purple-100/50 border border-purple-100 text-center">
@@ -386,8 +412,8 @@
           </div>
           <h3 class="text-xl font-bold mb-1">便携版</h3>
           <p class="text-sm text-slate-500 mb-6">单文件免安装，解压即用，不写注册表</p>
-          <div class="text-xs text-slate-400 mb-4">质量工具箱-Portable-2.2.4.exe · 74.9 MB</div>
-          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.4/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.4.exe" class="btn-primary block text-white py-3 rounded-xl font-semibold">下载便携版</a>
+          <div class="text-xs text-slate-400 mb-4">质量工具箱-Portable-2.2.5.exe · 74.9 MB</div>
+          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.5.exe" class="btn-primary block text-white py-3 rounded-xl font-semibold">下载便携版</a>
           <p class="text-[11px] text-slate-400 mt-3">首次启动自动解压 · 二次启动 1 秒</p>
         </div>
       </div>
