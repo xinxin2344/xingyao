@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xinxin2344.github.io/xingyao/sitemap.xml
