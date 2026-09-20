@@ -541,20 +541,28 @@
   // ===== 下载加速弹窗 =====
   (function () {
     const modal = document.getElementById('speedModal');
-    document.getElementById('speedTipBtn').addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    });
-    document.getElementById('speedModalClose').addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    });
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
+    const speedTipBtn = document.getElementById('speedTipBtn');
+    const speedModalClose = document.getElementById('speedModalClose');
+    if (speedTipBtn && modal) {
+      speedTipBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      });
+    }
+    if (speedModalClose && modal) {
+      speedModalClose.addEventListener('click', () => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
-      }
-    });
+      });
+    }
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+    }
   })();
 
   // ===== 开场动画：生成星星 + 退出 =====
