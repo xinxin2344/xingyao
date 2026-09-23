@@ -224,6 +224,15 @@
       linear-gradient(90deg, rgba(99,102,241,0.05) 1px, transparent 1px);
     background-size: 40px 40px;
   }
+
+  /* 产品切换器 */
+  .prod-switch.active {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(99,102,241,0.32);
+  }
+  .prod-switch:not(.active) { color: #64748b; }
+  .prod-switch:not(.active):hover { color: #6366f1; }
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
@@ -252,6 +261,7 @@
     <nav class="hidden md:flex items-center gap-8 text-sm text-slate-600">
       <a href="#features" class="hover:text-indigo-600 transition">功能</a>
       <a href="#screenshots" class="hover:text-indigo-600 transition">截图</a>
+      <a href="#chanxian" class="hover:text-indigo-600 transition">产线录入</a>
       <a href="#download" class="hover:text-indigo-600 transition">下载</a>
       <a href="#changelog" class="hover:text-indigo-600 transition">发布历史</a>
       <a href="#faq" class="hover:text-indigo-600 transition">常见问题</a>
@@ -265,42 +275,92 @@
   <!-- ===== Hero ===== -->
   <section class="relative bg-grid overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/60 via-white to-white pointer-events-none"></div>
-    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs text-indigo-600 mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
-        v2.2.5 已发布 · SPC 2026 新版 · 纯本地运行
-      </div>
-      <!-- 质量工具箱图标 -->
-      <div class="flex justify-center mb-6">
-        <img src="assets/qa.png" alt="质量工具箱" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl shadow-indigo-300/40 ring-4 ring-white" />
-      </div>
-      <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
-        <span class="grad-text">质量工具箱</span>
-      </h1>
-      <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-4 leading-relaxed">
-        为质量工程师打造的纯本地桌面工具集<br class="hidden md:block" />
-        SPC · MSA · FMEA · 8D · QC 七大手法，开箱即用
-      </p>
-      <p class="text-sm text-slate-400 mb-6">数据 100% 存储在本地，不联网、不上传、无广告</p>
-      <!-- AI 助手高亮标签 -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium shadow-lg shadow-indigo-500/30 mb-10">
-        <img src="assets/robot.png" alt="AI" class="w-5 h-5 rounded-full bg-white/20" />
-        内置 AI 助手 · 自动填表 · 生成数据 · 识别图表
+    <div class="relative max-w-7xl mx-auto px-6 py-14 md:py-20">
+
+      <!-- 产品切换器 -->
+      <div class="flex justify-center mb-10">
+        <div class="inline-flex p-1 rounded-full bg-white/80 backdrop-blur border border-slate-200 shadow-sm">
+          <button class="prod-switch active px-7 py-2.5 rounded-full text-sm font-semibold transition-all" data-prod="qa">质量工具箱</button>
+          <button class="prod-switch px-7 py-2.5 rounded-full text-sm font-semibold transition-all" data-prod="cx">产线录入系统</button>
+        </div>
       </div>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.5.exe" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-indigo-500/30 flex items-center gap-2">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-          下载安装版
-        </a>
-        <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.5.exe" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          下载便携版
-        </a>
+      <!-- ===== 质量工具箱面板 ===== -->
+      <div class="prod-panel text-center" data-prod="qa">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs text-indigo-600 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+          v2.2.5 已发布 · SPC 2026 新版 · 纯本地运行
+        </div>
+        <div class="flex justify-center mb-6">
+          <img src="assets/qa.png" alt="质量工具箱" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl shadow-indigo-300/40 ring-4 ring-white" />
+        </div>
+        <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
+          <span class="grad-text">质量工具箱</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-4 leading-relaxed">
+          为质量工程师打造的纯本地桌面工具集<br class="hidden md:block" />
+          SPC · MSA · FMEA · 8D · QC 七大手法，开箱即用
+        </p>
+        <p class="text-sm text-slate-400 mb-6">数据 100% 存储在本地，不联网、不上传、无广告</p>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium shadow-lg shadow-indigo-500/30 mb-8">
+          <img src="assets/robot.png" alt="AI" class="w-5 h-5 rounded-full bg-white/20" />
+          内置 AI 助手 · 自动填表 · 生成数据 · 识别图表
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1%20Setup%202.2.5.exe" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-indigo-500/30 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            下载安装版
+          </a>
+          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/V2.2.5/%E8%B4%A8%E9%87%8F%E5%B7%A5%E5%85%B7%E7%AE%B1-Portable-2.2.5.exe" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            下载便携版
+          </a>
+        </div>
+        <p class="mt-4 text-xs text-slate-400">Windows x64 · 安装版 65.5 MB · 便携版 74.9 MB</p>
+        <!-- 产品截图 -->
+        <div class="mt-10 shot-frame max-w-5xl mx-auto">
+          <img src="screenshots/main.png" alt="质量工具箱界面" class="w-full h-auto" loading="lazy" />
+        </div>
       </div>
-      <p class="mt-6 text-xs text-slate-400">Windows x64 · 安装版 65.5 MB · 便携版 74.9 MB</p>
+
+      <!-- ===== 产线录入系统面板 ===== -->
+      <div class="prod-panel hidden text-center" data-prod="cx">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 border border-cyan-100 text-xs text-cyan-700 mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
+          产线数据录入 · 桌面看板 + 手机扫码 · 数据存本地 Excel
+        </div>
+        <div class="flex justify-center mb-6">
+          <img src="assets/wangye.png" alt="产线录入系统" class="w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-xl shadow-cyan-300/40 ring-4 ring-white" />
+        </div>
+        <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
+          <span class="grad-text">产线录入系统</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-4 leading-relaxed">
+          产线测试数据一站式录入<br class="hidden md:block" />
+          桌面实时看板 · 手机扫码录入 · 白夜班自动切表归档
+        </p>
+        <p class="text-sm text-slate-400 mb-8">数据直存本地 Excel，安全读写、损坏自愈，零数据库依赖</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#chanxian" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-cyan-500/30 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            了解更多
+          </a>
+          <a href="mailto:17783025456@163.com" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            联系获取
+          </a>
+        </div>
+        <!-- 产品截图 -->
+        <div class="mt-10 shot-frame max-w-4xl mx-auto">
+          <img src="screenshots/chanxian-gui.png" alt="产线录入系统界面" class="w-full h-auto" loading="lazy" />
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- ===== 质量工具箱内容区 ===== -->
+  <div class="prod-content" data-prod="qa">
 
   <!-- ===== 功能亮点 ===== -->
   <section id="features" class="py-20 bg-white">
@@ -527,6 +587,65 @@
     </div>
   </section>
 
+  </div>
+  <!-- ===== /质量工具箱内容区 ===== -->
+
+  <!-- ===== 产线录入系统内容区 ===== -->
+  <div class="prod-content hidden" data-prod="cx">
+
+  <!-- ===== 产线录入系统 ===== -->
+  <section id="chanxian" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">产线录入系统</h2>
+        <p class="text-slate-500 max-w-2xl mx-auto">产线测试数据一站式录入 · 桌面看板 + 手机扫码，数据自动归档 Excel</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-10">
+        <figure class="shot-frame">
+          <img src="screenshots/chanxian-gui.png" alt="产线录入系统桌面端" class="w-full h-auto" loading="lazy" />
+          <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+            <b class="text-slate-800">桌面端 · 实时数据看板</b>
+            <span class="block text-slate-500 text-sm mt-1">Excel 风格表格，多项目标签页切换，录入数据 5 秒同步；自由增删列、拖拽列宽，改结构前自动备份</span>
+          </figcaption>
+        </figure>
+        <figure class="shot-frame">
+          <img src="screenshots/chanxian-web.png" alt="产线录入系统手机端" class="w-full h-auto" loading="lazy" />
+          <figcaption class="bg-white px-6 py-4 border-t border-slate-100">
+            <b class="text-slate-800">手机端 · 扫码即录</b>
+            <span class="block text-slate-500 text-sm mt-1">手机浏览器扫码即录，扫码枪自动聚焦提交；OK/NG、线体下拉、必填校验一应俱全，提交后自动回填工号</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-cyan-50 to-white border border-cyan-100">
+          <div class="text-2xl mb-2">📊</div>
+          <h3 class="font-bold mb-1">Excel 直存</h3>
+          <p class="text-sm text-slate-600">每项目独立 Excel，安全读写、损坏自愈，零数据库依赖</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-white border border-emerald-100">
+          <div class="text-2xl mb-2">🌙</div>
+          <h3 class="font-bold mb-1">白夜班切表</h3>
+          <p class="text-sm text-slate-600">到点自动归档本班数据并建新表，看板只显示当班记录</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-50 to-white border border-indigo-100">
+          <div class="text-2xl mb-2">⚙️</div>
+          <h3 class="font-bold mb-1">自定义列</h3>
+          <p class="text-sm text-slate-600">列可自由增删重命名，支持录入时间、线体下拉、OK·NG 等字段类型</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-50 to-white border border-amber-100">
+          <div class="text-2xl mb-2">📱</div>
+          <h3 class="font-bold mb-1">多端录入</h3>
+          <p class="text-sm text-slate-600">手机、平板、电脑浏览器均可录入，桌面端实时同步</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+  <!-- ===== /产线录入系统内容区 ===== -->
+
   <!-- ===== FAQ ===== -->
   <section id="faq" class="py-20 bg-white">
     <div class="max-w-3xl mx-auto px-6">
@@ -614,6 +733,7 @@
         <ul class="space-y-2 text-sm">
           <li><a href="#features" class="hover:text-white transition">核心功能</a></li>
           <li><a href="#screenshots" class="hover:text-white transition">界面预览</a></li>
+          <li><a href="#chanxian" class="hover:text-white transition">产线录入系统</a></li>
           <li><a href="#download" class="hover:text-white transition">下载安装</a></li>
           <li><a href="#changelog" class="hover:text-white transition">发布历史</a></li>
           <li><a href="#faq" class="hover:text-white transition">常见问题</a></li>
@@ -645,6 +765,22 @@
 </footer>
 
 <script>
+  // ===== 产品切换器（质量工具箱 / 产线录入系统）=====
+  (function () {
+    const switches = document.querySelectorAll('.prod-switch');
+    const panels = document.querySelectorAll('.prod-panel');
+    const contents = document.querySelectorAll('.prod-content');
+    switches.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const prod = btn.dataset.prod;
+        switches.forEach(b => b.classList.toggle('active', b.dataset.prod === prod));
+        panels.forEach(p => p.classList.toggle('hidden', p.dataset.prod !== prod));
+        contents.forEach(c => c.classList.toggle('hidden', c.dataset.prod !== prod));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  })();
+
   // ===== 下载加速弹窗 =====
   (function () {
     const modal = document.getElementById('speedModal');
