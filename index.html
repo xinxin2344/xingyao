@@ -259,14 +259,15 @@
       <span class="grad-text">星耀</span>
     </a>
     <nav class="hidden md:flex items-center gap-8 text-sm text-slate-600">
-      <a href="#features" class="hover:text-indigo-600 transition">功能</a>
-      <a href="#screenshots" class="hover:text-indigo-600 transition">截图</a>
-      <a href="#chanxian" class="hover:text-indigo-600 transition">产线录入</a>
-      <a href="#download" class="hover:text-indigo-600 transition">下载</a>
-      <a href="#changelog" class="hover:text-indigo-600 transition">发布历史</a>
+      <a href="#features" data-nav="qa" class="hover:text-indigo-600 transition">功能</a>
+      <a href="#screenshots" data-nav="qa" class="hover:text-indigo-600 transition">截图</a>
+      <a href="#chanxian" data-nav="cx" class="hover:text-indigo-600 transition hidden">产线录入</a>
+      <a href="#download" data-nav="qa" class="hover:text-indigo-600 transition">下载</a>
+      <a href="#changelog" data-nav="qa" class="hover:text-indigo-600 transition">发布历史</a>
       <a href="#faq" class="hover:text-indigo-600 transition">常见问题</a>
     </nav>
-    <a href="#download" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
+    <a href="#download" data-nav="qa" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium">立即下载</a>
+    <a href="#chanxian" data-nav="cx" class="btn-primary text-white text-sm px-4 py-2 rounded-lg font-medium hidden">了解产线录入</a>
   </div>
 </header>
 
@@ -341,15 +342,16 @@
         </p>
         <p class="text-sm text-slate-400 mb-8">数据直存本地 Excel，安全读写、损坏自愈，零数据库依赖</p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="#chanxian" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-cyan-500/30 flex items-center gap-2">
+          <a href="https://gitee.com/xiaotng387724188/xingyao/releases/download/chanxian/%E4%BA%A7%E7%BA%BF%E5%BD%95%E5%85%A5%E7%B3%BB%E7%BB%9F.exe" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg shadow-cyan-500/30 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            立即下载
+          </a>
+          <a href="#chanxian" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             了解更多
           </a>
-          <a href="mailto:17783025456@163.com" class="btn-ghost border border-slate-300 text-slate-700 px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            联系获取
-          </a>
         </div>
+        <p class="mt-4 text-xs text-slate-400">Windows x64 · 单文件免安装 · 约 14.5 MB</p>
         <!-- 产品截图 -->
         <div class="mt-10 shot-frame max-w-4xl mx-auto">
           <img src="screenshots/chanxian-gui.png" alt="产线录入系统界面" class="w-full h-auto" loading="lazy" />
@@ -722,20 +724,20 @@
       <!-- 品牌 -->
       <div>
         <div class="flex items-center gap-2 mb-3">
-          <img src="assets/qa.png" class="w-8 h-8 rounded-lg" />
-          <span class="font-bold text-white">星耀 · 质量工具箱</span>
+          <img src="assets/wangye.png" class="w-8 h-8 rounded-lg" />
+          <span class="font-bold text-white">星耀</span>
         </div>
-        <p class="text-sm leading-relaxed">纯本地质量工程师桌面工具，SPC / MSA / FMEA / 8D 一站式解决。</p>
+        <p class="text-sm leading-relaxed">纯本地质量工具系列 · 质量工具箱 + 产线录入系统，数据本地存储，无需联网。</p>
       </div>
       <!-- 快速链接 -->
       <div>
         <div class="font-semibold text-white mb-3 text-sm">快速导航</div>
         <ul class="space-y-2 text-sm">
-          <li><a href="#features" class="hover:text-white transition">核心功能</a></li>
-          <li><a href="#screenshots" class="hover:text-white transition">界面预览</a></li>
-          <li><a href="#chanxian" class="hover:text-white transition">产线录入系统</a></li>
-          <li><a href="#download" class="hover:text-white transition">下载安装</a></li>
-          <li><a href="#changelog" class="hover:text-white transition">发布历史</a></li>
+          <li><a href="#features" data-nav="qa" class="hover:text-white transition">核心功能</a></li>
+          <li><a href="#screenshots" data-nav="qa" class="hover:text-white transition">界面预览</a></li>
+          <li><a href="#chanxian" data-nav="cx" class="hover:text-white transition hidden">产线录入系统</a></li>
+          <li><a href="#download" data-nav="qa" class="hover:text-white transition">下载安装</a></li>
+          <li><a href="#changelog" data-nav="qa" class="hover:text-white transition">发布历史</a></li>
           <li><a href="#faq" class="hover:text-white transition">常见问题</a></li>
         </ul>
       </div>
@@ -759,7 +761,7 @@
       </div>
     </div>
     <div class="border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
-      <p>© 2026 星耀质量工具箱 · 数据本地存储 · 无需联网</p>
+      <p>© 2026 星耀 · 数据本地存储 · 无需联网</p>
     </div>
   </div>
 </footer>
@@ -770,12 +772,14 @@
     const switches = document.querySelectorAll('.prod-switch');
     const panels = document.querySelectorAll('.prod-panel');
     const contents = document.querySelectorAll('.prod-content');
+    const navItems = document.querySelectorAll('[data-nav]');
     switches.forEach(btn => {
       btn.addEventListener('click', () => {
         const prod = btn.dataset.prod;
         switches.forEach(b => b.classList.toggle('active', b.dataset.prod === prod));
         panels.forEach(p => p.classList.toggle('hidden', p.dataset.prod !== prod));
         contents.forEach(c => c.classList.toggle('hidden', c.dataset.prod !== prod));
+        navItems.forEach(n => n.classList.toggle('hidden', n.dataset.nav !== prod));
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
